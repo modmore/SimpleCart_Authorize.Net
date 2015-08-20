@@ -1,0 +1,4 @@
+++ Authorize.net Gateway for SimpleCart v1.0.0-rc1
+++ Released on April 6, 2015
+++++++++++++++++++++++++++++++++++++++++++++++++++
+- Initial release
