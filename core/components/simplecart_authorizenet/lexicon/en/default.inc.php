@@ -13,3 +13,6 @@ $_lang['simplecart.methods.payment.authorizenet.property_transaction_key.desc'] 
 
 $_lang['simplecart.methods.payment.authorizenet.property_test_mode'] = "Test Mode";
 $_lang['simplecart.methods.payment.authorizenet.property_test_mode.desc'] = "Set to 1 to to enable test/developer mode, and 0 to enable live transactions. ";
+
+$_lang['simplecart.methods.payment.authorizenet.property_hash_secret'] = "MD5 Hash Secret";
+$_lang['simplecart.methods.payment.authorizenet.property_hash_secret.desc'] = "The hash secret to use in validating MD5 signatures. <strong>This needs to match the MD5 Hash as configured in the Sandbox/Merchant dashboard under Account > MD5 Hash</strong>.";
