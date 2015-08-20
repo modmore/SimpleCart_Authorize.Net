@@ -1,5 +1,5 @@
 {
     "require": {
-        "authorizenet/authorizenet": "~1.8"
+        "omnipay/authorizenet": "^2.3"
     }
 }
