@@ -10,45 +10,34 @@ $fields = array(
 	),
 	'sc-so-field2' => array(
 		'type' => 'text',
-		'name' => 'username',
-		'label' => 'API Username',
-		'description' => 'Enter the username from your API credentials, to gain access to your account.',
+		'name' => 'hash_secret',
+		'label' => 'Hash Secret',
+		'description' => 'The MD5 Hash Secret used for validating if the response from Authorize.net is genuine. Needs to match what is set in the Authorize.net merchant dashboard.',
 		'default' => '',
 	),
 	'sc-so-field3' => array(
 		'type' => 'text',
-		'name' => 'password',
-		'label' => 'API Password',
-		'description' => 'Enter the password from your API credentials, to gain access to your account.',
+		'name' => 'login_id',
+		'label' => 'Login ID',
+		'description' => 'The API Login ID, available from the Authorize.net merchant dashboard.',
 		'default' => '',
 	),
 	'sc-so-field4' => array(
 		'type' => 'text',
-		'name' => 'signature',
-		'label' => 'API Signature',
-		'description' => 'Enter the signature from your API credentials, to gain access to your account.',
+		'name' => 'transaction_key',
+		'label' => 'Transaction Key',
+		'description' => 'The API Transaction Key, available from the Authorize.net merchant dashboard.',
 		'default' => '',
-	),
-	'sc-so-field5' => array(
-		'type' => 'select',
-		'name' => 'noshipping',
-		'label' => 'Disable PayPal Shipping',
-		'choices' => array(
-			'0' => 'No',
-			'1' => 'Yes',
-		),
-		'description' => 'Enter YES to disable (NO to enable) shipping in PayPal. Normally this is captured by you. Default YES.',
-		'default' => '1',
 	),
 	'sc-so-field6' => array(
 		'type' => 'select',
-		'name' => 'usesandbox',
-		'label' => 'Sandbox mode',
+		'name' => 'test_mode',
+		'label' => 'Test mode',
 		'choices' => array(
 			'0' => 'No',
 			'1' => 'Yes',
 		),
-		'description' => 'Whether or not to run PayPal in Sandbox (test) mode. Note: you need Sandbox API credentials too.',
+		'description' => 'Determines what endpoint to use in talking to Authorize.net. Set to Yes for using the sandbox, or No for the live service. ',
 		'default' => '1',
 	),
 );
@@ -107,7 +96,6 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 		$output .= '</table>
 		</div>
 
-		<!-- currently in MODX 2.3.2-pl its not yet possible to fire javascript -->
 		<script type="text/javascript">
 			var win = Ext.getCmp("modx-window-setupoptions");
 				win.config.autoHeight = true;

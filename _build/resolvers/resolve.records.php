@@ -41,6 +41,7 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
 
         $list = array(
             'currency' => 'USD',
+            'hash_secret' => '',
             'login_id' => '',
             'transaction_key' => '',
             'test_mode' => 1,
