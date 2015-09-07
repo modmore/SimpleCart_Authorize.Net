@@ -2,7 +2,7 @@
 
 $_lang['simplecart.methods.payment.authorizenet'] = "Authorize.net";
 $_lang['simplecart.methods.payment.authorizenet.desc'] = "Pay your order online with a credit card.";
-$_lang['simplecart.methods.payment.authorizenet.orderdesc'] = "You've completed your order with a credit card. We successfully have received the payment and your order will be shipped.";
+$_lang['simplecart.methods.payment.authorizenet.orderdesc'] = "You've completed your order with a credit card. We have successfully received the payment and your order will be shipped.";
 
 // properties
 $_lang['simplecart.methods.payment.authorizenet.property_login_id'] = "Login ID";
