@@ -1,3 +1,7 @@
+++ Authorize.net Gateway for SimpleCart v1.0.0-pl
+++ Released on September 27th, 2015
+++++++++++++++++++++++++++++++++++++++++++++++++++
+- Add [[+productcodes]] and [[+productnames]] placeholders to the transaction description
 - Fix stupid typo in the default success message.
 
 ++ Authorize.net Gateway for SimpleCart v1.0.0-rc1
