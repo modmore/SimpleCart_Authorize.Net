@@ -167,11 +167,23 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
      */
     public function getParameters()
     {
+        $phs = array();
+        $codes = array();
+        $names = array();
+        /** @var simpleCartOrderProduct[] $products */
+        $products = $this->order->getMany('Product');
+        foreach ($products as $product) {
+            $codes[] = $product->get('productcode');
+            $names[] = $product->get('title');
+        }
+        $phs['productcodes'] = implode(', ', $codes);
+        $phs['productnames'] = implode(', ', $names);
+
         $content = $this->modx->lexicon('simplecart.methods.yourorderat');
         $chunk = $this->modx->newObject('modChunk');
         $chunk->setCacheable(false);
         $chunk->setContent($content);
-        $description = $chunk->process();
+        $description = $chunk->process($phs);
 
         $relayUrl = $this->modx->getOption('simplecart_authorizenet.assets_url', null,
             $this->modx->getOption('site_url') . 'assets/components/simplecart_authorizenet/');

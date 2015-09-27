@@ -63,7 +63,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 			
 			switch ($attr['type']) {
 				case 'select':
-					$output .= '<select name="" class="x-form-text x-form-field modx-combo x-form-focus" style="width:100%;height:35px;margin-top:-2px;">';
+					$output .= '<select name="' . $attr['name'] . '" class="x-form-text x-form-field modx-combo x-form-focus" style="width:100%;height:35px;margin-top:-2px;">';
 					foreach ($attr['choices'] as $val => $label) {
 						$selected = ($val == $attr['default']) ? ' selected="selected"' : '';
 						$output .= '<option value="' . $val . '"' . $selected . '>' . $label . '</option>';
