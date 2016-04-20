@@ -45,6 +45,8 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
             'login_id' => '',
             'transaction_key' => '',
             'test_mode' => 1,
+            'live_endpoint' => 'https://secure.authorize.net/gateway/transact.dll',
+            'developer_endpoint' => 'https://test.authorize.net/gateway/transact.dll',
         );
 
         foreach ($list as $key => $defaultValue) {

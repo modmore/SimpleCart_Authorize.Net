@@ -16,26 +16,21 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
 
         try {
             $parameters = $this->getParameters();
-            $response = $gateway->purchase($parameters)->send();
+            $request = $gateway->purchase($parameters);
+            $response = $request->send();
         } catch (InvalidRequestException $e) {
             $this->modx->log(modX::LOG_LEVEL_ERROR, 'Error preparing Authorize.net transaction: ' . $e->getMessage(), '', __METHOD__, __FILE__, __LINE__);
             return false;
         }
 
-        if ($response->isSuccessful()) {
-
-            // Payment was successful
-            print_r($response);
-
-        } elseif ($response->isRedirect()) {
-
+        if ($response->isRedirect()) {
             // Redirect to offsite payment gateway
             $response->redirect();
-
         } else {
-
             // Payment failed
-            echo $response->getMessage();
+            $this->order->addLog($response->getMessage());
+            $this->order->setStatus('payment_failed');
+            $this->order->save();
         }
 
         return false;
@@ -94,6 +89,13 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
         $gateway->setTransactionKey($transactionKey);
         $gateway->setTestMode($testMode);
         $gateway->setDeveloperMode($testMode);
+
+        $liveEndpoint = $this->getProperty('live_endpoint', 'https://secure.authorize.net/gateway/transact.dll');
+        $developerEndpoint = $this->getProperty('developer_endpoint', 'https://test.authorize.net/gateway/transact.dll');
+        $gateway->setEndpoints([
+            'live' => $liveEndpoint,
+            'developer' => $developerEndpoint,
+        ]);
 
         return $gateway;
     }
