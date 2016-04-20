@@ -1,3 +1,5 @@
+- Make sure the gateway also works on PHP 5.3 [#2]
+
 ++ Authorize.net Gateway for SimpleCart v1.1.0-pl
 ++ Released on April 20th, 2016
 ++++++++++++++++++++++++++++++++++++++++++++++++++
