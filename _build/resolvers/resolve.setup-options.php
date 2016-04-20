@@ -15,9 +15,9 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         $modx->addPackage('simplecart', $modelPath);
 
         /** @var simpleCartMethod $method */
-        $method = $modx->getObject('simpleCartMethod', array('name' => 'paypal', 'type' => 'payment'));
+        $method = $modx->getObject('simpleCartMethod', array('name' => 'authorizenet', 'type' => 'payment'));
 		if(empty($method) || !is_object($method)) {
-            $modx->log(modX::LOG_LEVEL_ERROR, '[SimpleCart] Failed to find newly created record for the PayPal payment method');
+            $modx->log(modX::LOG_LEVEL_ERROR, '[SimpleCart] Failed to find newly created record for the Authorize.net payment method');
             return false;
         }
 
