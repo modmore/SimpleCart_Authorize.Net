@@ -1,3 +1,11 @@
+++ Authorize.net Gateway for SimpleCart v1.1.0-pl
+++ Released on April 20th, 2016
+++++++++++++++++++++++++++++++++++++++++++++++++++
+- Allow overriding the endpoint URLs via gateway properties (#1)
+- Fix setup options not being saved properly
+- Fix missing constant for manual builds
+- Add MIT license to build and readme to clarify how this extra is licensed
+
 ++ Authorize.net Gateway for SimpleCart v1.0.0-pl
 ++ Released on September 27th, 2015
 ++++++++++++++++++++++++++++++++++++++++++++++++++
