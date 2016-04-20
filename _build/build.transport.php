@@ -8,8 +8,8 @@ if (!defined('MOREPROVIDER_BUILD')) {
     define('PKG_NAME', 'SimpleCart Authorize.net');
     define('PKG_NAMESPACE', 'simplecart_authorizenet');
     define('PKG_NAME_LOWER', PKG_NAMESPACE);
-    define('PKG_VERSION', '1.0.0');
-    define('PKG_RELEASE', 'dev1');
+    define('PKG_VERSION', '1.1.0');
+    define('PKG_RELEASE', 'pl');
 
     /* load modx */
     require_once dirname(dirname(__FILE__)) . '/config.core.php';
