@@ -7,6 +7,7 @@ if (!defined('MOREPROVIDER_BUILD')) {
     /* define version */
     define('PKG_NAME', 'SimpleCart Authorize.net');
     define('PKG_NAMESPACE', 'simplecart_authorizenet');
+    define('PKG_NAME_LOWER', PKG_NAMESPACE);
     define('PKG_VERSION', '1.0.0');
     define('PKG_RELEASE', 'dev1');
 
