@@ -8,7 +8,7 @@ if (!defined('MOREPROVIDER_BUILD')) {
     define('PKG_NAME', 'SimpleCart Authorize.net');
     define('PKG_NAMESPACE', 'simplecart_authorizenet');
     define('PKG_NAME_LOWER', PKG_NAMESPACE);
-    define('PKG_VERSION', '1.1.0');
+    define('PKG_VERSION', '1.1.1');
     define('PKG_RELEASE', 'pl');
 
     /* load modx */
