@@ -203,8 +203,6 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
             'hashSecret' => $this->getProperty('hash_secret'),
         );
 
-        $this->modx->log(modX::LOG_LEVEL_ERROR, 'Parameters for checkout [1]: ' . print_r($parameters, true));
-
         return $parameters;
     }
 }
