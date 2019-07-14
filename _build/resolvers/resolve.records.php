@@ -41,8 +41,8 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
 
         $list = array(
             'currency' => 'USD',
-            'hash_secret' => '',
             'login_id' => '',
+            'client_key' => '',
             'transaction_key' => '',
             'test_mode' => 1,
             'live_endpoint' => 'https://secure.authorize.net/gateway/transact.dll',

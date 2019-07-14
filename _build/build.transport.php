@@ -101,10 +101,10 @@ $files[] = array(
     'source' => $sources['source_core'],
     'target' => "return MODX_CORE_PATH . 'components/';",
 );
-$files[] = array(
-    'source' => $sources['source_assets'],
-    'target' => "return MODX_ASSETS_PATH . 'components/';",
-);
+//$files[] = array(
+//    'source' => $sources['source_assets'],
+//    'target' => "return MODX_ASSETS_PATH . 'components/';",
+//);
 
 foreach ($files as $fileset) {
     $package->put($fileset, $attributes);

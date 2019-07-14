@@ -1,10 +1,19 @@
 <?php
 use Omnipay\Omnipay;
-use Omnipay\Common\Exception\InvalidRequestException;
-use Omnipay\AuthorizeNet\SIMGateway;
 
 require_once 'vendor/autoload.php';
 class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
+
+    public function view()
+    {
+        return $this->modx->getChunk('scAuthorizeNetForm', [
+            'js_url' => (bool)$this->getProperty('test_mode') ? 'https://jstest.authorize.net/v1/Accept.js' : 'https://js.authorize.net/v1/Accept.js',
+            'login_id' => $this->getProperty('login_id'),
+            'client_key' => $this->getProperty('client_key'),
+            'method_id' => $this->method->get('id'),
+        ]);
+    }
+
     public function submit() {
         $this->modx->lexicon->load('simplecart:cart', 'simplecart:methods');
 
@@ -18,39 +27,8 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
             $parameters = $this->getParameters();
             $request = $gateway->purchase($parameters);
             $response = $request->send();
-        } catch (InvalidRequestException $e) {
+        } catch (Exception $e) {
             $this->modx->log(modX::LOG_LEVEL_ERROR, 'Error preparing Authorize.net transaction: ' . $e->getMessage(), '', __METHOD__, __FILE__, __LINE__);
-            return false;
-        }
-
-        if ($response->isRedirect()) {
-            // Redirect to offsite payment gateway
-            $response->redirect();
-        } else {
-            // Payment failed
-            $this->order->addLog($response->getMessage());
-            $this->order->setStatus('payment_failed');
-            $this->order->save();
-        }
-
-        return false;
-    }
-
-    public function verify() {
-        $gateway = $this->initAuthorizeNet();
-        if (!$gateway) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, '[SimpleCart/Authorize.Net] Unable of instantiating the Authorize.net gateway', '', __METHOD__, __FILE__, __LINE__);
-            return false;
-        }
-
-        // Validate the transaction with the gateway (includes MD5 hash check)
-        try {
-            $parameters = $this->getParameters();
-            $response = $gateway->completePurchase($parameters)->send();
-        } catch (InvalidRequestException $e) {
-            $this->order->addLog('Authorize.net Exception', $e->getMessage());
-            $this->order->setStatus('payment_failed');
-            $this->order->save();
             return false;
         }
 
@@ -62,29 +40,32 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
 
         // Update the status and return true or false, depending on the state
         if ($response->isSuccessful()) {
+            $this->order->addLog('Authorize.net Success', 1);
             $this->order->setStatus('finished');
             $this->order->save();
             return true;
         }
-        else {
-            $this->order->setStatus('payment_failed');
-            $this->order->save();
-            return false;
-        }
+        $this->order->setStatus('payment_failed');
+        $this->order->save();
+        return false;
+    }
+
+    public function verify() {
+        return (bool)$this->order->getLog('Authorize.net Success');
     }
 
     /**
      * Set up the OmniPay Gateway instance for the SIM integration with Authorize.net
      *
-     * @return \Omnipay\AuthorizeNet\SIMGateway
+     * @return \Omnipay\AuthorizeNet\AIMGateway
      */
     protected function initAuthorizeNet() {
         $loginId = $this->getProperty('login_id');
         $transactionKey = $this->getProperty('transaction_key');
         $testMode = (bool)$this->getProperty('test_mode', true, 'isset');
 
-        /** @var SIMGateway $gateway */
-        $gateway = Omnipay::create('AuthorizeNet_SIM');
+        /** @var \Omnipay\AuthorizeNet\AIMGateway $gateway */
+        $gateway = Omnipay::create('AuthorizeNet_AIM');
         $gateway->setApiLoginId($loginId);
         $gateway->setTransactionKey($transactionKey);
         $gateway->setTestMode($testMode);
@@ -187,20 +168,15 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
         $chunk->setContent($content);
         $description = $chunk->process($phs);
 
-        $relayUrl = $this->modx->getOption('simplecart_authorizenet.assets_url', null,
-            $this->modx->getOption('site_url') . 'assets/components/simplecart_authorizenet/');
-        $relayUrl .= 'connector.php?action=relay&id=' . $this->order->get('id');
-
         $parameters = array(
             'amount' => $this->order->get('total'),
-            'returnUrl' => $relayUrl,
             'currency' => $this->getCurrency(),
             'card' => $this->getCard(),
             'description' => $description,
             'transactionId' => $this->order->get('id'),
             'clientIp' => $_SERVER['REMOTE_ADDR'],
-
-            'hashSecret' => $this->getProperty('hash_secret'),
+            'opaqueDataDescriptor' => !empty($_REQUEST['dataDescriptor']) ? $_REQUEST['dataDescriptor'] : '',
+            'opaqueDataValue' => !empty($_REQUEST['dataValue']) ? $_REQUEST['dataValue'] : '',
         );
 
         return $parameters;
