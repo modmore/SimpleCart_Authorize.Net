@@ -1,4 +1,9 @@
 {
+    "config": {
+        "platform": {
+            "php": "7.1.0"
+        }
+    },
     "require": {
         "omnipay/authorizenet": "^2.3"
     }

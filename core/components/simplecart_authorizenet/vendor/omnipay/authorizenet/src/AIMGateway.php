@@ -2,6 +2,13 @@
 
 namespace Omnipay\AuthorizeNet;
 
+use Omnipay\AuthorizeNet\Message\AIMAuthorizeRequest;
+use Omnipay\AuthorizeNet\Message\AIMCaptureRequest;
+use Omnipay\AuthorizeNet\Message\AIMPaymentPlanQueryResponse;
+use Omnipay\AuthorizeNet\Message\AIMPurchaseRequest;
+use Omnipay\AuthorizeNet\Message\QueryRequest;
+use Omnipay\AuthorizeNet\Message\AIMRefundRequest;
+use Omnipay\AuthorizeNet\Message\AIMVoidRequest;
 use Omnipay\Common\AbstractGateway;
 
 /**
@@ -21,8 +28,9 @@ class AIMGateway extends AbstractGateway
             'transactionKey'    => '',
             'testMode'          => false,
             'developerMode'     => false,
-            'liveEndpoint'      => 'https://secure.authorize.net/gateway/transact.dll',
-            'developerEndpoint' => 'https://test.authorize.net/gateway/transact.dll',
+            'hashSecret'        => '',
+            'liveEndpoint'      => 'https://api2.authorize.net/xml/v1/request.api',
+            'developerEndpoint' => 'https://apitest.authorize.net/xml/v1/request.api',
         );
     }
 
@@ -56,6 +64,16 @@ class AIMGateway extends AbstractGateway
         return $this->setParameter('developerMode', $value);
     }
 
+    public function setHashSecret($value)
+    {
+        return $this->setParameter('hashSecret', $value);
+    }
+
+    public function getHashSecret()
+    {
+        return $this->getParameter('hashSecret');
+    }
+
     public function setEndpoints($endpoints)
     {
         $this->setParameter('liveEndpoint', $endpoints['live']);
@@ -82,28 +100,121 @@ class AIMGateway extends AbstractGateway
         return $this->setParameter('developerEndpoint', $value);
     }
 
+    public function getDuplicateWindow()
+    {
+        return $this->getParameter('duplicateWindow');
+    }
+
+    public function setDuplicateWindow($value)
+    {
+        return $this->setParameter('duplicateWindow', $value);
+    }
+
+    /**
+     * @param array $parameters
+     * @return AIMAuthorizeRequest
+     */
     public function authorize(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\AuthorizeNet\Message\AIMAuthorizeRequest', $parameters);
     }
 
+    /**
+     * @param array $parameters
+     * @return AIMCaptureRequest
+     */
     public function capture(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\AuthorizeNet\Message\CaptureRequest', $parameters);
+        return $this->createRequest('\Omnipay\AuthorizeNet\Message\AIMCaptureRequest', $parameters);
     }
 
+    /**
+     * @param array $parameters
+     * @return AIMCaptureOnlyRequest
+     */
+    public function captureOnly(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\AuthorizeNet\Message\AIMCaptureOnlyRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return AIMPurchaseRequest
+     */
     public function purchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\AuthorizeNet\Message\AIMPurchaseRequest', $parameters);
     }
 
+    /**
+     * @param array $parameters
+     * @return AIMVoidRequest
+     */
     public function void(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\AuthorizeNet\Message\AIMVoidRequest', $parameters);
     }
 
+    /**
+     * @param array $parameters
+     * @return AIMRefundRequest
+     */
     public function refund(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\AuthorizeNet\Message\AIMRefundRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return AIMPaymentPlansQueryRequest
+     */
+    public function paymentPlansQuery(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\AuthorizeNet\Message\Query\AIMPaymentPlansQueryRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return AIMPaymentPlanQueryResponse
+     */
+    public function paymentPlanQuery(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\AuthorizeNet\Message\Query\AIMPaymentPlanQueryRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return QueryResponse
+     */
+    public function query(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\AuthorizeNet\Message\Query\QueryRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return QueryBatchResponse
+     */
+    public function queryBatch(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\AuthorizeNet\Message\QueryBatchRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return QueryBatchDetailResponse
+     */
+    public function queryBatchDetail(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\AuthorizeNet\Message\QueryBatchDetailRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return QueryDetailResponse
+     */
+    public function queryDetail(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\AuthorizeNet\Message\QueryDetailRequest', $parameters);
     }
 }
