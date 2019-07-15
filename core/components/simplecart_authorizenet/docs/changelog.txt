@@ -2,6 +2,11 @@ Authorize.net Gateway for SimpleCart v2.0.0-pl
 ----------------------------------------------
 Released on 2019-07-15
 
+- The gateway has been rewritten to use Accept.js (rather than SIM/hosted payment page with relay); customer now stays on-site to enter their credentials.
+- Gateway now requires a Client Key property to be set. Find the Client Key in the Authorize.net dashboard under Account > Settings > Security Settings > General Security Settings > Manage Public Client Key.
+- Auth.net now receives the MODX user ID and invoice number
+- Removed properties to change endpoints; new API endpoints are hardcoded (based on test/live mode)
+- Removed MD5 Hash Secret property
 - Remove stray log statement causing info to get entered into the error log on every purchase
 
 Authorize.net Gateway for SimpleCart v1.1.1-pl
