@@ -45,8 +45,6 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
             'client_key' => '',
             'transaction_key' => '',
             'test_mode' => 1,
-            'live_endpoint' => 'https://secure.authorize.net/gateway/transact.dll',
-            'developer_endpoint' => 'https://test.authorize.net/gateway/transact.dll',
         );
 
         foreach ($list as $key => $defaultValue) {
@@ -62,6 +60,19 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
                 $property->set('name', $key);
                 $property->set('value', $defaultValue);
                 $property->save();
+            }
+        }
+
+        $removed = [
+            'hash_secret',
+            'live_endpoint',
+            'developer_endpoint',
+        ];
+        foreach ($removed as $removedPropertyKey) {
+            $removedProperty = $modx->getObject('simpleCartMethodProperty', ['method' => $method->get('id'), 'name' => $removedPropertyKey]);
+            if ($removedProperty instanceof simpleCartMethodProperty) {
+                $modx->log(modX::LOG_LEVEL_INFO, '... Removed no longer used "' . $removedPropertyKey . '" property (old value: ' . $removedProperty->get('value') . ')');
+                $removedProperty->remove();
             }
         }
 

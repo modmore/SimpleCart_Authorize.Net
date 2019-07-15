@@ -71,13 +71,6 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
         $gateway->setTestMode($testMode);
         $gateway->setDeveloperMode($testMode);
 
-        $liveEndpoint = $this->getProperty('live_endpoint', 'https://secure.authorize.net/gateway/transact.dll');
-        $developerEndpoint = $this->getProperty('developer_endpoint', 'https://test.authorize.net/gateway/transact.dll');
-        $gateway->setEndpoints(array(
-            'live' => $liveEndpoint,
-            'developer' => $developerEndpoint,
-        ));
-
         return $gateway;
     }
 
