@@ -23,7 +23,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
         $configs = array(
             'currency',
-            'hash_secret',
+            'client_key',
             'login_id',
             'transaction_key',
             'test_mode',

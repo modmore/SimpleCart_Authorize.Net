@@ -10,9 +10,9 @@ $fields = array(
 	),
 	'sc-so-field2' => array(
 		'type' => 'text',
-		'name' => 'hash_secret',
-		'label' => 'Hash Secret',
-		'description' => 'The MD5 Hash Secret used for validating if the response from Authorize.net is genuine. Needs to match what is set in the Authorize.net merchant dashboard.',
+		'name' => 'client_key',
+		'label' => 'Client Key',
+		'description' => 'The public client key to use for the Accept.js implementation. Find this in the Authorize.net merchant dashboard.',
 		'default' => '',
 	),
 	'sc-so-field3' => array(
