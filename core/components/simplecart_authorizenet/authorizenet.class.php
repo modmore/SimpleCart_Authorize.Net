@@ -1,4 +1,8 @@
 <?php
+
+use Omnipay\AuthorizeNet\AIMGateway;
+use Omnipay\AuthorizeNet\Message\AIMResponse;
+use Omnipay\Common\CreditCard;
 use Omnipay\Omnipay;
 
 require_once 'vendor/autoload.php';
@@ -23,12 +27,14 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
             return false;
         }
 
+        $parameters = $this->getParameters();
         try {
-            $parameters = $this->getParameters();
             $request = $gateway->purchase($parameters);
+            /** @var AIMResponse $response */
             $response = $request->send();
         } catch (Exception $e) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, 'Error preparing Authorize.net transaction: ' . $e->getMessage(), '', __METHOD__, __FILE__, __LINE__);
+            $this->order->addLog('Auth.net Error', $e->getMessage());
+            $this->modx->log(modX::LOG_LEVEL_ERROR, 'Error preparing Authorize.net transaction: ' . $e->getMessage() . ' // ' . $e->getTraceAsString() . ' // ' . print_r($parameters, true), '', __METHOD__, __FILE__, __LINE__);
             return false;
         }
 
@@ -40,7 +46,7 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
 
         // Update the status and return true or false, depending on the state
         if ($response->isSuccessful()) {
-            $this->order->addLog('Authorize.net Success', 1);
+            $this->order->addLog('Auth.net Success', 1);
             $this->order->setStatus('finished');
             $this->order->save();
             return true;
@@ -51,20 +57,20 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
     }
 
     public function verify() {
-        return (bool)$this->order->getLog('Authorize.net Success');
+        return (int)$this->order->getLog('Auth.net Result Code') === 1;
     }
 
     /**
      * Set up the OmniPay Gateway instance for the SIM integration with Authorize.net
      *
-     * @return \Omnipay\AuthorizeNet\AIMGateway
+     * @return AIMGateway
      */
     protected function initAuthorizeNet() {
         $loginId = $this->getProperty('login_id');
         $transactionKey = $this->getProperty('transaction_key');
         $testMode = (bool)$this->getProperty('test_mode', true, 'isset');
 
-        /** @var \Omnipay\AuthorizeNet\AIMGateway $gateway */
+        /** @var AIMGateway $gateway */
         $gateway = Omnipay::create('AuthorizeNet_AIM');
         $gateway->setApiLoginId($loginId);
         $gateway->setTransactionKey($transactionKey);
@@ -77,7 +83,7 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
     /**
      * Creates the OmniPay CreditCard instance; basically an array of user information. No actual cards here.
      *
-     * @return \Omnipay\Common\CreditCard
+     * @return CreditCard
      */
     public function getCard()
     {
@@ -119,7 +125,7 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
             ));
         }
 
-        $card = new \Omnipay\Common\CreditCard($cardData);
+        $card = new CreditCard($cardData);
 
         return $card;
     }
