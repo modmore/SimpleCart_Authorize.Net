@@ -169,6 +169,7 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
 
         $parameters = array(
             'amount' => $this->order->get('total'),
+            'invoiceNumber' => $this->order->get('id'),
             'currency' => $this->getCurrency(),
             'card' => $this->getCard(),
             'description' => $description,
@@ -177,6 +178,11 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
             'opaqueDataDescriptor' => !empty($_REQUEST['dataDescriptor']) ? $_REQUEST['dataDescriptor'] : '',
             'opaqueDataValue' => !empty($_REQUEST['dataValue']) ? $_REQUEST['dataValue'] : '',
         );
+
+        // Add the MODX User ID if available
+        if ($this->modx->user && $this->modx->user->get('id') > 0) {
+            $parameters['customerId'] = $this->modx->user->get('id');
+        }
 
         return $parameters;
     }
