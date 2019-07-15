@@ -10,7 +10,7 @@
 
     <div class="sc-authnet-field sc-authnet-field-number">
         <label for="authnet_cardNumber">Card Number:</label>
-        <input type="text" id="authnet_cardNumber" autocomplete="cc-number" placeholder="1234" maxlength="24" size="40">
+        <input type="text" id="authnet_cardNumber" autocomplete="cc-number" maxlength="24" size="40">
     </div>
 
     <div class="sc-authnet-field sc-authnet-field-expiration">
