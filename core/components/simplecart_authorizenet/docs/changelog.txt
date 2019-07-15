@@ -1,28 +1,33 @@
-++ Authorize.net Gateway for SimpleCart v2.0.0-pl
-++ Released on 2019-07-15
-++++++++++++++++++++++++++++++++++++++++++++++++++
+Authorize.net Gateway for SimpleCart v2.0.0-pl
+----------------------------------------------
+Released on 2019-07-15
+
 - Remove stray log statement causing info to get entered into the error log on every purchase
 
-++ Authorize.net Gateway for SimpleCart v1.1.1-pl
-++ Released on April 21st, 2016
-++++++++++++++++++++++++++++++++++++++++++++++++++
+Authorize.net Gateway for SimpleCart v1.1.1-pl
+----------------------------------------------
+Released on April 21st, 2016
+
 - Make sure the gateway also works on PHP 5.3 [#2]
 
-++ Authorize.net Gateway for SimpleCart v1.1.0-pl
-++ Released on April 20th, 2016
-++++++++++++++++++++++++++++++++++++++++++++++++++
+Authorize.net Gateway for SimpleCart v1.1.0-pl
+----------------------------------------------
+Released on April 20th, 2016
+
 - Allow overriding the endpoint URLs via gateway properties (#1)
 - Fix setup options not being saved properly
 - Fix missing constant for manual builds
 - Add MIT license to build and readme to clarify how this extra is licensed
 
-++ Authorize.net Gateway for SimpleCart v1.0.0-pl
-++ Released on September 27th, 2015
-++++++++++++++++++++++++++++++++++++++++++++++++++
-- Add [[+productcodes]] and [[+productnames]] placeholders to the transaction description
+Authorize.net Gateway for SimpleCart v1.0.0-pl
+----------------------------------------------
+Released on September 27th, 2015
+
+- Add  and  placeholders to the transaction description
 - Fix stupid typo in the default success message.
 
-++ Authorize.net Gateway for SimpleCart v1.0.0-rc1
-++ Released on August 21st, 2015
-++++++++++++++++++++++++++++++++++++++++++++++++++
+Authorize.net Gateway for SimpleCart v1.0.0-rc1
+-----------------------------------------------
+Released on August 21st, 2015
+
 - Initial release
