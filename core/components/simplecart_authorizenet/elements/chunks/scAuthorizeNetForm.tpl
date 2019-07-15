@@ -1,14 +1,12 @@
-<style type="text/css">
-    .sc-authnet-field > label {
-        display: block;
-        width: 100%;
-    }
-</style>
 <div class="sc-authnet-gateway">
 
     <input type="hidden" name="dataValue" id="dataValue">
     <input type="hidden" name="dataDescriptor" id="dataDescriptor">
 
+    <div class="sc-authnet-field sc-authnet-field-number">
+        <label for="authnet_fullName">Name on card:</label>
+        <input type="text" id="authnet_fullName" autocomplete="cc-name" maxlength="64" size="40">
+    </div>
 
     <div class="sc-authnet-field sc-authnet-field-number">
         <label for="authnet_cardNumber">Card Number:</label>
@@ -21,14 +19,14 @@
         <span class="sc-authnet-field-expiration-separator">/</span>
         <input type="number" id="authnet_expYear" autocomplete="cc-exp-year" min="2019" max="2050" size="20" maxlength="4" placeholder="YYYY">
     </div>
+
     <div class="sc-authnet-field sc-authnet-field-cardCode">
-        <label for="authnet_cardCode">Security Code</label>
+        <label for="authnet_cardCode">Security Code:</label>
         <input type="number" id="authnet_cardCode" autocomplete="cc-exp-csc">
     </div>
 
-    <script type="text/javascript" src="[[+js_url]]" charset="utf-8"></script>
+    <script charset="utf-8" src="[[+js_url]]" type="text/javascript"></script>
     <script type="text/javascript">
-
         function initAuthNetListener() {
             var form = document.getElementById('simplecartCheckout');
             form.addEventListener('submit', function(e) {
@@ -49,7 +47,6 @@
             document.addEventListener('DOMContentLoaded', initAuthNetListener);
         }
 
-
         function sendPaymentDataToAnet() {
             var authData = { };
             authData.clientKey = "[[+client_key]]";
@@ -60,20 +57,16 @@
             cardData.month = document.getElementById("authnet_expMonth").value;
             cardData.year = document.getElementById("authnet_expYear").value;
             cardData.cardCode = document.getElementById("authnet_cardCode").value;
-
+            cardData.fullName = document.getElementById("authnet_fullName").value;
 
             var secureData = { };
             secureData.authData = authData;
             secureData.cardData = cardData;
 
-            // console.log('sendPaymentDataToAnet()', secureData);
-
             Accept.dispatchData(secureData, authNetResponseHandler);
         }
 
         function authNetResponseHandler (response) {
-            console.log('authNetResponseHandler()', response);
-
             if (response.messages.resultCode === "Error") {
                 var i = 0,
                     message = '';
@@ -91,7 +84,6 @@
                 }
             }
 
-
             document.getElementById("dataDescriptor").value = response.opaqueData.dataDescriptor;
             document.getElementById("dataValue").value = response.opaqueData.dataValue;
 
@@ -99,9 +91,9 @@
             document.getElementById("authnet_expMonth").value = "";
             document.getElementById("authnet_expYear").value = "";
             document.getElementById("authnet_cardCode").value = "";
+            document.getElementById("authnet_fullName").value = "";
 
             document.getElementById('simplecartCheckout').submit();
         }
-
     </script>
 </div>
