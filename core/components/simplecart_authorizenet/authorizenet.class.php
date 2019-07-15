@@ -39,10 +39,12 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
         }
 
         // Log information about the transaction
-        $data = $response->getData();
-        $this->order->addLog('Authorize.net Reference', $response->getTransactionReference());
-        $this->order->addLog('Authorize.net Message', $response->getMessage());
-        $this->order->addLog('Credit Card', $data['x_card_type'] . ' ' . $data['x_account_number']);
+        $reference = $response->getTransactionReference(false);
+        $this->order->addLog('Auth.net Transaction', $reference->getTransId());
+        $this->order->addLog('Auth.net Result Code', $response->getResultCode());
+        $this->order->addLog('Auth.net Reason Code', $response->getReasonCode());
+        $this->order->addLog('Auth.net Message', $response->getMessage());
+        $this->order->addLog('Auth.net Card', $reference->getCard()['number']);
 
         // Update the status and return true or false, depending on the state
         if ($response->isSuccessful()) {
