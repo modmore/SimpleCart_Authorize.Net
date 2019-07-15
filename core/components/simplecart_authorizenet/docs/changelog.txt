@@ -8,6 +8,7 @@ Released on 2019-07-15
 - Removed properties to change endpoints; new API endpoints are hardcoded (based on test/live mode)
 - Removed MD5 Hash Secret property
 - Remove stray log statement causing info to get entered into the error log on every purchase
+- Prevent "Could not load class simplecart_authorizenet" error [#3]
 
 Authorize.net Gateway for SimpleCart v1.1.1-pl
 ----------------------------------------------
