@@ -10,7 +10,8 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
 
     public function view()
     {
-        return $this->modx->getChunk('scAuthorizeNetForm', [
+        $chunk = $this->getProperty('form_chunk', 'scAuthorizeNetForm');
+        return $this->modx->getChunk($chunk, [
             'js_url' => (bool)$this->getProperty('test_mode') ? 'https://jstest.authorize.net/v1/Accept.js' : 'https://js.authorize.net/v1/Accept.js',
             'login_id' => $this->getProperty('login_id'),
             'client_key' => $this->getProperty('client_key'),

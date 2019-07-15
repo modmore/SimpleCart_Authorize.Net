@@ -2,6 +2,8 @@ Authorize.net Gateway for SimpleCart v2.0.0-pl
 ----------------------------------------------
 Released on 2019-07-15
 
+Important: if you're upgrading from before 2.0, please see the documentation for upgrade instructions: https://docs.modmore.com/en/SimpleCart/v2.x/Payment_Methods/Authorize.net.html
+
 - The gateway has been rewritten to use Accept.js (rather than SIM/hosted payment page with relay); customer now stays on-site to enter their credentials.
 - Gateway now requires a Client Key property to be set. Find the Client Key in the Authorize.net dashboard under Account > Settings > Security Settings > General Security Settings > Manage Public Client Key.
 - Auth.net now receives the MODX user ID and invoice number

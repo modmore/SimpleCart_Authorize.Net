@@ -45,6 +45,7 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
             'client_key' => '',
             'transaction_key' => '',
             'test_mode' => 1,
+            'form_chunk' => 'scAuthorizeNetForm'
         );
 
         foreach ($list as $key => $defaultValue) {
