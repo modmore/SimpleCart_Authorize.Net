@@ -1,5 +1,5 @@
-++ Authorize.net Gateway for SimpleCart v1.1.2-pl
-++ Released on
+++ Authorize.net Gateway for SimpleCart v2.0.0-pl
+++ Released on 2019-07-15
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 - Remove stray log statement causing info to get entered into the error log on every purchase
 
