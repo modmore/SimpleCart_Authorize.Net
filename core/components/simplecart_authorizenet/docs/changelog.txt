@@ -1,5 +1,11 @@
 Authorize.net Gateway for SimpleCart v2.0.0-pl
 ----------------------------------------------
+Released on 2019-07-18
+
+- Don't empty out gateway properties when they're left empty in the setup options
+
+Authorize.net Gateway for SimpleCart v2.0.0-pl
+----------------------------------------------
 Released on 2019-07-15
 
 Important: if you're upgrading from before 2.0, please see the documentation for upgrade instructions: https://docs.modmore.com/en/SimpleCart/v2.x/Payment_Methods/Authorize.net.html

@@ -33,7 +33,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             if (isset($options[$key])) {
                 /** @var simpleCartMethodProperty $property */
                 $property = $modx->getObject('simpleCartMethodProperty', array('method' => $method->get('id'), 'name' => $key));
-                if (!empty($property) && is_object($property)) {
+                if (!empty($property) && is_object($property) && !empty($options[$key])) {
                     $property->set('value', $options[$key]);
                     $property->save();
                 }
