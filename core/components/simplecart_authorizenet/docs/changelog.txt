@@ -3,6 +3,7 @@ Authorize.net Gateway for SimpleCart v2.0.0-pl
 Released on 2019-07-18
 
 - Don't empty out gateway properties when they're left empty in the setup options
+- Prevent "Could not load class simplecart_authorizenet" error - really this time [#3]
 
 Authorize.net Gateway for SimpleCart v2.0.0-pl
 ----------------------------------------------
