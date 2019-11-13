@@ -152,7 +152,6 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
      */
     public function getParameters()
     {
-        $phs = array();
         $codes = array();
         $names = array();
         /** @var simpleCartOrderProduct[] $products */
@@ -161,14 +160,15 @@ class SimpleCartAuthorizenetPaymentGateway extends SimpleCartGateway {
             $codes[] = $product->get('productcode');
             $names[] = $product->get('title');
         }
-        $phs['productcodes'] = implode(', ', $codes);
-        $phs['productnames'] = implode(', ', $names);
 
-        $content = $this->modx->lexicon('simplecart.methods.yourorderat');
-        $chunk = $this->modx->newObject('modChunk');
-        $chunk->setCacheable(false);
-        $chunk->setContent($content);
-        $description = $chunk->process($phs);
+        $description = $this->modx->lexicon('simplecart.methods.yourorderat', array(
+            'site_name' => $this->modx->getOption('site_name'),
+            '+site_name' => $this->modx->getOption('site_name'),
+            'site_url' => $this->modx->getOption('site_url'),
+            'ordernr' => $this->order->get('ordernr'),
+            'productcodes' => implode(', ', $codes),
+            'productnames' => implode(', ', $names),
+        ));
 
         $parameters = array(
             'amount' => $this->order->get('total'),
