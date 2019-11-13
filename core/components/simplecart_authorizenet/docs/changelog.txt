@@ -1,3 +1,9 @@
+Authorize.net Gateway for SimpleCart v2.0.1-pl
+----------------------------------------------
+Released on 2019-11-13
+
+- Update description to include the order number (update to SimpleCart 2.7)
+
 Authorize.net Gateway for SimpleCart v2.0.0-pl
 ----------------------------------------------
 Released on 2019-07-18
