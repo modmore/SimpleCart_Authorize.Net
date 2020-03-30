@@ -9,7 +9,7 @@ if (!defined('MOREPROVIDER_BUILD')) {
     define('PKG_NAME', 'SimpleCart Authorize.net');
     define('PKG_NAMESPACE', 'simplecart_authorizenet');
     define('PKG_NAME_LOWER', PKG_NAMESPACE);
-    define('PKG_VERSION', '2.0.0');
+    define('PKG_VERSION', '2.0.2');
     define('PKG_RELEASE', 'pl');
 
     /* load modx */
@@ -104,6 +104,7 @@ $vehicle->resolve('file',array(
 ));
 $vehicle->resolve('php', array('source' => $sources['resolvers'].'resolve.records.php'));
 $vehicle->resolve('php', array('source' => $sources['resolvers'].'resolve.setup-options.php'));
+$vehicle->resolve('php', array('source' => $sources['resolvers'].'guzzle3_cacert.resolver.php'));
 
 $builder->putVehicle($vehicle);
 unset($vehicle);
